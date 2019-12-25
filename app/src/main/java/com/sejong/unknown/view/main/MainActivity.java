@@ -1,12 +1,16 @@
 package com.sejong.unknown.view.main;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.sejong.unknown.R;
 import com.sejong.unknown.base.BaseActivity;
 import com.sejong.unknown.databinding.ActivityMainBinding;
 import com.sejong.unknown.view.main.adapter.CategoryAdapter;
+import com.sejong.unknown.view.main.adapter.LostAdapter;
+import com.sejong.unknown.view.main.data.ContextDelegateImpl;
+import com.sejong.unknown.view.main.data.MainRepositoryImpl;
 import com.sejong.unknown.view.main.entity.CategoryItem;
 
 import java.util.ArrayList;
@@ -14,10 +18,9 @@ import java.util.ArrayList;
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     private ActivityMainBinding binding;
-    private MainViewModel mainViewModel = new MainViewModel();
+    private MainViewModel mainViewModel = new MainViewModel(new ContextDelegateImpl(this), new MainRepositoryImpl());
 
-    private CategoryAdapter categoryAdapter;
-    private int before = -1;
+    private int before = 0;
 
     @Override
     protected void onDataBinding() {
@@ -29,7 +32,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     @Override
     protected void setupView() {
         initRecyclerViewCategory();
+        initRecyclerViewLost();
         observeMainViewModel();
+        initView();
     }
 
     private void initRecyclerViewCategory() {
@@ -37,7 +42,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
-        categoryAdapter = new CategoryAdapter(mainViewModel);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(mainViewModel);
         categoryAdapter.addAll(initCategoryAdapter());
 
         binding.rcvCategory.setLayoutManager(linearLayoutManager);
@@ -47,25 +52,53 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private ArrayList<CategoryItem> initCategoryAdapter() {
 
         ArrayList<CategoryItem> items = new ArrayList<>();
-        items.add(new CategoryItem(CategoryItem.Type.ALL));
-        items.add(new CategoryItem(CategoryItem.Type.BOOK));
-        items.add(new CategoryItem(CategoryItem.Type.ETC));
+        items.add(CategoryItem.ALL);
+        items.add(CategoryItem.BOOK);
+        items.add(CategoryItem.ETC);
         return items;
+    }
+
+    private void initRecyclerViewLost() {
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        DividerItemDecoration decoration = new DividerItemDecoration(
+                binding.rcvLost.getContext(),
+                linearLayoutManager.getOrientation()
+        );
+
+        LostAdapter lostAdapter = new LostAdapter(mainViewModel);
+
+        binding.rcvLost.setLayoutManager(linearLayoutManager);
+        binding.rcvLost.setAdapter(lostAdapter);
+        binding.rcvLost.addItemDecoration(decoration);
     }
 
     private void observeMainViewModel() {
 
         mainViewModel.categoryItemLiveData.observe(this, categoryItem -> {
             selectCategoryItem(categoryItem);
-            showToast(categoryItem.getType().getName());
+            mainViewModel.requestLostItems();
+            showToast(categoryItem.getName());
+        });
+
+        mainViewModel.lostItemsLiveData.observe(this, lostItems -> {
+            LostAdapter lostAdapter = ((LostAdapter) binding.rcvLost.getAdapter());
+            lostAdapter.clear();
+            lostAdapter.addAll(lostItems);
         });
     }
 
     private void selectCategoryItem(CategoryItem categoryItem) {
-        if (before != -1) {
-            binding.rcvCategory.getLayoutManager().findViewByPosition(before).setSelected(false);
-        }
-        before = categoryItem.getType().getValue();
+
+        binding.rcvCategory.getLayoutManager().findViewByPosition(before).setSelected(false);
+        before = categoryItem.getValue();
         binding.rcvCategory.getLayoutManager().findViewByPosition(before).setSelected(true);
+    }
+
+    private void initView() {
+//        mainViewModel.onClickCategoryItem(CategoryItem.ALL);
+        mainViewModel.requestLostItems();
     }
 }

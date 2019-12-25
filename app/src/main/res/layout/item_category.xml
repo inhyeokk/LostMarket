@@ -12,14 +12,14 @@
             type="com.sejong.unknown.view.main.entity.CategoryItem" />
     </data>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:padding="5dp"
         android:background="@drawable/selector_category"
-        android:text="@{categoryItem.type.name}"
+        android:text="@{categoryItem.name}"
         android:textColor="@color/selector_category"
         android:onClick="@{() -> viewModel.onClickCategoryItem(categoryItem)}" />
 </layout>

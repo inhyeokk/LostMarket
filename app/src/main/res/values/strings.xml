@@ -3,4 +3,9 @@
 
     <!-- activity_main -->
     <string name="main_ed_search">검색</string>
+
+    <!-- item_lost -->
+    <string name="lost_tv_found_date">습득일자: %1$s</string>
+    <string name="lost_tv_found_location">습득장소: %1$s</string>
+    <string name="lost_tv_storage_location">보관장소: %1$s</string>
 </resources>
