@@ -5,8 +5,12 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.ViewDataBinding;
 
-abstract public class BaseActivity extends AppCompatActivity {
+abstract public class BaseActivity<VB extends ViewDataBinding> extends AppCompatActivity {
+
+    protected int layoutRes;
+    protected VB binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
