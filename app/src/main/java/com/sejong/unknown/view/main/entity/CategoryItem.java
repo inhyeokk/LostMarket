@@ -3,18 +3,24 @@ package com.sejong.unknown.view.main.entity;
 public class CategoryItem {
 
     public enum Type {
-        ALL("전체"),
-        BOOK("도서"),
-        ETC("기타");
+        ALL("전체", 0),
+        BOOK("도서", 1),
+        ETC("기타", 2);
 
         private String name;
+        private int value;
 
-        Type(String name) {
+        Type(String name, int value) {
             this.name = name;
+            this.value = value;
         }
 
         public String getName() {
             return name;
+        }
+
+        public int getValue() {
+            return value;
         }
     }
 
