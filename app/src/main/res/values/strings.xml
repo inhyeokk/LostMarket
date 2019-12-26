@@ -2,6 +2,7 @@
     <string name="app_name">로스트마켓</string>
 
     <!-- activity_main -->
+    <string name="main_title">분실물 찾기</string>
     <string name="main_ed_search">검색</string>
 
     <!-- item_lost -->
@@ -10,7 +11,7 @@
     <string name="lost_tv_storage_location">보관장소: %1$s</string>
 
     <!-- menu_main_bottom -->
-    <string name="main_bottom_found_item">습득물</string>
+    <string name="main_bottom_found_item">분실물</string>
     <string name="main_bottom_information">종합안내</string>
     <string name="main_bottom_market">마켓</string>
     <string name="main_bottom_setting">설정</string>

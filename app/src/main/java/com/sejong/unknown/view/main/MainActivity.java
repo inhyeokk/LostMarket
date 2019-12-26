@@ -1,7 +1,9 @@
 package com.sejong.unknown.view.main;
 
 import android.content.Intent;
+import android.util.Log;
 
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.sejong.unknown.R;
 import com.sejong.unknown.base.BaseActivity;
 import com.sejong.unknown.databinding.ActivityMainBinding;
+import com.sejong.unknown.util.ImageUtil;
 import com.sejong.unknown.view.main.adapter.CategoryAdapter;
 import com.sejong.unknown.view.main.adapter.LostAdapter;
 import com.sejong.unknown.view.main.data.ContextDelegateImpl;
@@ -34,11 +37,24 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     protected void setupView() {
+        initToolbar();
         initRecyclerViewCategory();
         initRecyclerViewLost();
         initBottomNavigationView();
         observeMainViewModel();
         initView();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        binding.bottomView.setSelectedItemId(R.id.menu_found_item);
+    }
+
+    private void initToolbar() {
+
+        setSupportActionBar(binding.toolbar);
+        getSupportActionBar().setTitle(getString(R.string.main_title));
     }
 
     private void initRecyclerViewCategory() {
@@ -106,7 +122,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         mainViewModel.categoryItemLiveData.observe(this, categoryItem -> {
             selectCategoryItem(categoryItem);
             mainViewModel.requestLostItems(categoryItem.getName());
-            showToast(categoryItem.getName());
         });
 
         mainViewModel.lostItemsLiveData.observe(this, lostItems -> {

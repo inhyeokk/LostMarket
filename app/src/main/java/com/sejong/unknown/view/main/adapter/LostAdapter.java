@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sejong.unknown.R;
 import com.sejong.unknown.databinding.ItemLostBinding;
+import com.sejong.unknown.util.ImageUtil;
 import com.sejong.unknown.view.main.MainViewModel;
 import com.sejong.unknown.view.main.entity.LostItem;
 
@@ -69,6 +70,7 @@ public class LostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public void bind(LostItem item) {
+//            ImageUtil.setImageBase64(binding.ivImage, item.getImage());
             binding.setLostItem(item);
             binding.executePendingBindings();
         }

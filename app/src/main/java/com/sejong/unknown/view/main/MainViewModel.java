@@ -39,6 +39,9 @@ public class MainViewModel extends BaseViewModel {
     }
 
     public void requestLostItems(String category) {
+        if (category.equals("전체")) {
+            category = "";
+        }
         register(mainRepository.requestLostItems(category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -49,8 +52,8 @@ public class MainViewModel extends BaseViewModel {
         ArrayList<LostItem> lostItemList = new ArrayList<>();
         for (Lost lost: response.lostList) {
             LostItem item = new LostItem(
-                    CategoryItem.PHONE,
-                    "",
+                    CategoryItem.fromString(lost.category),
+                    lost.image,
                     contextDelegate.getString(R.string.lost_tv_found_date, lost.foundDate),
                     lost.detailName,
                     contextDelegate.getString(R.string.lost_tv_found_location, lost.foundLocation),

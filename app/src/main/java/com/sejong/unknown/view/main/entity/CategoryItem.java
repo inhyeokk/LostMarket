@@ -18,6 +18,15 @@ public enum CategoryItem {
         this.value = value;
     }
 
+    public static CategoryItem fromString(String name) {
+        for (CategoryItem category: CategoryItem.values()) {
+            if (category.name.equalsIgnoreCase(name)) {
+                return category;
+            }
+        }
+        return null;
+    }
+
     public String getName() {
         return name;
     }
