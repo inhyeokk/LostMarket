@@ -6,4 +6,5 @@ import io.reactivex.Single;
 
 public interface ManageRepository {
     Single<LostResponse> requestLostItemsByStatus(String tag);
+    Single<LostResponse> requestLostItemDetail(String id);
 }

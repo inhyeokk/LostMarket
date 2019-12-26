@@ -10,5 +10,8 @@ public class Lost {
     @SerializedName("storeplace") public String storageLocation;
     @SerializedName("tagname") public String category;
     @SerializedName("detailname") public String detailName;
+    @SerializedName("itemstat") public String status;
+    @SerializedName("receiptname") public String receiptName;
+    @SerializedName("receiptphone") public String receiptPhone;
     @SerializedName("detail") public String detail;
 }

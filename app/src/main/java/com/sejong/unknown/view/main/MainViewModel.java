@@ -55,6 +55,7 @@ public class MainViewModel extends BaseViewModel {
         ArrayList<LostItem> lostItemList = new ArrayList<>();
         for (Lost lost: response.lostList) {
             LostItem item = new LostItem(
+                    lost.id,
                     CategoryItem.fromString(lost.category),
                     lost.image,
                     lost.foundDate,

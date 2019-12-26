@@ -14,4 +14,10 @@ public class ManageRepositoryImpl implements ManageRepository {
         RetrofitService service = RetrofitHelper.getRetrofitService(RetrofitService.class);
         return service.requestLostItemsByStatus(stat).subscribeOn(Schedulers.io());
     }
+
+    @Override
+    public Single<LostResponse> requestLostItemDetail(String id) {
+        RetrofitService service = RetrofitHelper.getRetrofitService(RetrofitService.class);
+        return service.requestLostItemDetail(id).subscribeOn(Schedulers.io());
+    }
 }

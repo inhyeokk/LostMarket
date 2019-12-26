@@ -10,6 +10,7 @@ import com.sejong.unknown.model.response.LostResponse;
 import com.sejong.unknown.view.main.entity.CategoryItem;
 import com.sejong.unknown.view.main.entity.LostItem;
 import com.sejong.unknown.view.manage.domain.ManageRepository;
+import com.sejong.unknown.view.manage.entity.LostDetail;
 
 import java.util.ArrayList;
 
@@ -27,8 +28,14 @@ public class ManageViewModel extends BaseViewModel {
     public MutableLiveData<ArrayList<LostItem>> notRentalLiveData = new MutableLiveData<>();
     public MutableLiveData<ArrayList<LostItem>> rentalLiveData = new MutableLiveData<>();
 
+    public MutableLiveData<LostDetail> lostDetailLiveData = new MutableLiveData<>();
+
     public ManageViewModel(ManageRepository manageRepository) {
         this.manageRepository = manageRepository;
+    }
+
+    public void onClickLostItem(LostItem lostItem) {
+        requestLostDetail(lostItem.getId());
     }
 
     public void requestLostItems(String status) {
@@ -42,6 +49,7 @@ public class ManageViewModel extends BaseViewModel {
         ArrayList<LostItem> lostItemList = new ArrayList<>();
         for (Lost lost: response.lostList) {
             LostItem item = new LostItem(
+                    lost.id,
                     CategoryItem.fromString(lost.category),
                     lost.image,
                     lost.foundDate,
@@ -66,6 +74,31 @@ public class ManageViewModel extends BaseViewModel {
                 rentalLiveData.setValue(lostItemList);
                 break;
         }
+    }
+
+    public void requestLostDetail(String id) {
+        register(manageRepository.requestLostItemDetail(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleLostDetailResponse, this::handleError));
+    }
+
+    private void handleLostDetailResponse(LostResponse response) {
+        Lost lost = response.lostList.get(0);
+        LostDetail lostDetail = new LostDetail(
+                lost.id,
+                CategoryItem.fromString(lost.category),
+                lost.image,
+                lost.foundDate,
+                lost.detailName,
+                lost.foundLocation,
+                lost.storageLocation,
+                lost.status,
+                lost.receiptName,
+                lost.receiptPhone,
+                lost.detail
+        );
+        lostDetailLiveData.setValue(lostDetail);
     }
 
     private void handleError(Throwable throwable) {

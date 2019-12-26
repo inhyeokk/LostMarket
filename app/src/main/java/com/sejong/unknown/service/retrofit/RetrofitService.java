@@ -24,4 +24,7 @@ public interface RetrofitService {
 
     @GET("lost_admin_stat.php")
     Single<LostResponse> requestLostItemsByStatus(@Query("stat") String stat);
+
+    @GET("lost_detail_contents.php")
+    Single<LostResponse> requestLostItemDetail(@Query("id") String id);
 }

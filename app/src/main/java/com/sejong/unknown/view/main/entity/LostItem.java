@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 public class LostItem implements Parcelable {
 
+    private String id;
     private CategoryItem type;
     private String image;
     private String foundDate;
@@ -13,7 +14,8 @@ public class LostItem implements Parcelable {
     private String storageLocation;
     private String contents;
 
-    public LostItem(CategoryItem type, String image, String foundDate, String name, String foundLocation, String storageLocation, String contents) {
+    public LostItem(String id, CategoryItem type, String image, String foundDate, String name, String foundLocation, String storageLocation, String contents) {
+        this.id = id;
         this.type = type;
         this.image = image;
         this.foundDate = foundDate;
@@ -21,6 +23,14 @@ public class LostItem implements Parcelable {
         this.foundLocation = foundLocation;
         this.storageLocation = storageLocation;
         this.contents = contents;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public CategoryItem getType() {
@@ -79,7 +89,6 @@ public class LostItem implements Parcelable {
         this.contents = contents;
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -87,6 +96,7 @@ public class LostItem implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
         dest.writeInt(this.type == null ? -1 : this.type.ordinal());
         dest.writeString(this.image);
         dest.writeString(this.foundDate);
@@ -97,6 +107,7 @@ public class LostItem implements Parcelable {
     }
 
     protected LostItem(Parcel in) {
+        this.id = in.readString();
         int tmpType = in.readInt();
         this.type = tmpType == -1 ? null : CategoryItem.values()[tmpType];
         this.image = in.readString();
