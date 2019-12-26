@@ -70,7 +70,9 @@ public class LostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public void bind(LostItem item) {
-//            ImageUtil.setImageBase64(binding.ivImage, item.getImage());
+            if (item.getImage() != null && !item.getImage().equals("")) {
+                ImageUtil.setImageBase64(binding.ivImage, item.getImage());
+            }
             binding.setLostItem(item);
             binding.executePendingBindings();
         }
