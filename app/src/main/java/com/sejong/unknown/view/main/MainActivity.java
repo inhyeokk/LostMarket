@@ -60,6 +60,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         items.add(CategoryItem.BOOK);
         items.add(CategoryItem.ELECTRONICS);
         items.add(CategoryItem.PHONE);
+        items.add(CategoryItem.CLOTHING);
         items.add(CategoryItem.WALLET);
         items.add(CategoryItem.ETC);
         return items;
@@ -104,7 +105,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         mainViewModel.categoryItemLiveData.observe(this, categoryItem -> {
             selectCategoryItem(categoryItem);
-            mainViewModel.requestLostItems();
+            mainViewModel.requestLostItems(categoryItem.getName());
             showToast(categoryItem.getName());
         });
 
@@ -124,7 +125,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     private void initView() {
 //        mainViewModel.onClickCategoryItem(CategoryItem.ALL);
-        mainViewModel.requestLostItems();
+        mainViewModel.requestLostItems("");
     }
 
     private void goToSettingActivity() {

@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.sejong.unknown.R;
 import com.sejong.unknown.base.BaseViewModel;
+import com.sejong.unknown.model.response.Lost;
+import com.sejong.unknown.model.response.LostResponse;
 import com.sejong.unknown.view.main.domain.ContextDelegate;
 import com.sejong.unknown.view.main.domain.MainRepository;
 import com.sejong.unknown.view.main.entity.CategoryItem;
@@ -36,20 +38,27 @@ public class MainViewModel extends BaseViewModel {
         categoryItemLiveData.setValue(categoryItem);
     }
 
-    public void requestLostItems() {
-        register(mainRepository.requestLostItems()
+    public void requestLostItems(String category) {
+        register(mainRepository.requestLostItems(category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleLostItemsResponse, this::handleError));
     }
 
-    private void handleLostItemsResponse(ArrayList<LostItem> lostItems) {
-        for (LostItem item: lostItems) {
-            item.setFoundDate(contextDelegate.getString(R.string.lost_tv_found_date, item.getFoundDate()));
-            item.setFoundLocation(contextDelegate.getString(R.string.lost_tv_found_location, item.getFoundLocation()));
-            item.setStorageLocation(contextDelegate.getString(R.string.lost_tv_storage_location, item.getStorageLocation()));
+    private void handleLostItemsResponse(LostResponse response) {
+        ArrayList<LostItem> lostItemList = new ArrayList<>();
+        for (Lost lost: response.lostList) {
+            LostItem item = new LostItem(
+                    CategoryItem.PHONE,
+                    "",
+                    contextDelegate.getString(R.string.lost_tv_found_date, lost.foundDate),
+                    lost.detailName,
+                    contextDelegate.getString(R.string.lost_tv_found_location, lost.foundLocation),
+                    contextDelegate.getString(R.string.lost_tv_storage_location, lost.storageLocation)
+            );
+            lostItemList.add(item);
         }
-        lostItemsLiveData.setValue(lostItems);
+        lostItemsLiveData.setValue(lostItemList);
     }
 
     private void handleError(Throwable throwable) {

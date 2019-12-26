@@ -1,25 +1,18 @@
 package com.sejong.unknown.view.main.data;
 
+import com.sejong.unknown.model.response.LostResponse;
+import com.sejong.unknown.service.retrofit.RetrofitHelper;
+import com.sejong.unknown.service.retrofit.RetrofitService;
 import com.sejong.unknown.view.main.domain.MainRepository;
-import com.sejong.unknown.view.main.entity.CategoryItem;
-import com.sejong.unknown.view.main.entity.LostItem;
-
-import java.util.ArrayList;
 
 import io.reactivex.Single;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainRepositoryImpl implements MainRepository {
 
     @Override
-    public Single<ArrayList<LostItem>> requestLostItems() {
-        return Single.fromCallable(() -> {
-            ArrayList<LostItem> items = new ArrayList<>();
-            items.add(new LostItem(CategoryItem.ETC, "", "2019-12-25", "검은색 백팩", "학술정보원", "학생회관"));
-            items.add(new LostItem(CategoryItem.ETC, "", "2019-12-25", "검은색 백팩", "학술정보원", "학생회관"));
-            items.add(new LostItem(CategoryItem.ETC, "", "2019-12-25", "검은색 백팩", "학술정보원", "학생회관"));
-            items.add(new LostItem(CategoryItem.ETC, "", "2019-12-25", "검은색 백팩", "학술정보원", "학생회관"));
-            items.add(new LostItem(CategoryItem.ETC, "", "2019-12-25", "검은색 백팩", "학술정보원", "학생회관"));
-            return items;
-        });
+    public Single<LostResponse> requestLostItems(String tag) {
+        RetrofitService service = RetrofitHelper.getRetrofitService(RetrofitService.class);
+        return service.requestLostItems(tag).subscribeOn(Schedulers.io());
     }
 }
