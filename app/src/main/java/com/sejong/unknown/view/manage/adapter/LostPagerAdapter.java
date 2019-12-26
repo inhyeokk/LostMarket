@@ -9,14 +9,17 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.sejong.unknown.R;
 import com.sejong.unknown.view.main.domain.ContextDelegate;
 import com.sejong.unknown.view.manage.ManageFragment;
+import com.sejong.unknown.view.manage.ManageViewModel;
 
 public class LostPagerAdapter extends FragmentPagerAdapter {
 
     private ContextDelegate contextDelegate;
+    private ManageViewModel manageViewModel;
 
-    public LostPagerAdapter(@NonNull FragmentManager fm, int behavior, ContextDelegate contextDelegate) {
+    public LostPagerAdapter(@NonNull FragmentManager fm, int behavior, ContextDelegate contextDelegate, ManageViewModel manageViewModel) {
         super(fm, behavior);
         this.contextDelegate = contextDelegate;
+        this.manageViewModel = manageViewModel;
     }
 
     @Override
@@ -29,16 +32,16 @@ public class LostPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0: // 분실물
-                return new ManageFragment();
+                return new ManageFragment(manageViewModel, "0");
 
             case 1: // 찾아간 분실물
-                return new ManageFragment();
+                return new ManageFragment(manageViewModel, "1");
 
             case 2: // 대여가능 품목
-                return new ManageFragment();
+                return new ManageFragment(manageViewModel, "2");
 
             case 3: // 대여중인 품목
-                return new ManageFragment();
+                return new ManageFragment(manageViewModel, "3");
 
             default:
                 throw new IllegalArgumentException("unexpected position: " + position);

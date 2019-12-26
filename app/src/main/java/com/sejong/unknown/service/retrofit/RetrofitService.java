@@ -21,4 +21,7 @@ public interface RetrofitService {
 
     @GET("lost_fillter.php")
     Single<LostResponse> requestLostItems(@Query("tag") String tag);
+
+    @GET("lost_admin_stat.php")
+    Single<LostResponse> requestLostItemsByStatus(@Query("stat") String stat);
 }
