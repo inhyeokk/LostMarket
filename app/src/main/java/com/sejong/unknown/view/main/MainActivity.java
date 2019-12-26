@@ -1,5 +1,7 @@
 package com.sejong.unknown.view.main;
 
+import android.content.Intent;
+
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +14,7 @@ import com.sejong.unknown.view.main.adapter.LostAdapter;
 import com.sejong.unknown.view.main.data.ContextDelegateImpl;
 import com.sejong.unknown.view.main.data.MainRepositoryImpl;
 import com.sejong.unknown.view.main.entity.CategoryItem;
+import com.sejong.unknown.view.setting.SettingActivity;
 
 import java.util.ArrayList;
 
@@ -33,6 +36,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     protected void setupView() {
         initRecyclerViewCategory();
         initRecyclerViewLost();
+        initBottomNavigationView();
         observeMainViewModel();
         initView();
     }
@@ -54,6 +58,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         ArrayList<CategoryItem> items = new ArrayList<>();
         items.add(CategoryItem.ALL);
         items.add(CategoryItem.BOOK);
+        items.add(CategoryItem.ELECTRONICS);
+        items.add(CategoryItem.PHONE);
+        items.add(CategoryItem.WALLET);
         items.add(CategoryItem.ETC);
         return items;
     }
@@ -73,6 +80,24 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         binding.rcvLost.setLayoutManager(linearLayoutManager);
         binding.rcvLost.setAdapter(lostAdapter);
         binding.rcvLost.addItemDecoration(decoration);
+    }
+
+    private void initBottomNavigationView() {
+
+        binding.bottomView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.menu_found_item:
+                    return true;
+                case R.id.menu_information:
+                    return true;
+                case R.id.menu_market:
+                    return true;
+                case R.id.menu_setting:
+                    goToSettingActivity();
+                    return true;
+            }
+            return false;
+        });
     }
 
     private void observeMainViewModel() {
@@ -100,5 +125,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private void initView() {
 //        mainViewModel.onClickCategoryItem(CategoryItem.ALL);
         mainViewModel.requestLostItems();
+    }
+
+    private void goToSettingActivity() {
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
     }
 }

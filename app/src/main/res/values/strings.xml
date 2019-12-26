@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">언노운마켓</string>
+    <string name="app_name">로스트마켓</string>
 
     <!-- activity_main -->
     <string name="main_ed_search">검색</string>
@@ -8,4 +8,14 @@
     <string name="lost_tv_found_date">습득일자: %1$s</string>
     <string name="lost_tv_found_location">습득장소: %1$s</string>
     <string name="lost_tv_storage_location">보관장소: %1$s</string>
+
+    <!-- menu_main_bottom -->
+    <string name="main_bottom_found_item">습득물</string>
+    <string name="main_bottom_information">종합안내</string>
+    <string name="main_bottom_market">마켓</string>
+    <string name="main_bottom_setting">설정</string>
+
+    <!-- activity_setting -->
+    <string name="setting_title">설정</string>
+    <string name="setting_manager_login">관리자 로그인</string>
 </resources>
