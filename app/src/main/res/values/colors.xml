@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4c69fc</color>
-    <color name="colorPrimaryDark">#524eed</color>
-    <color name="colorAccent">#000000</color>
+    <color name="colorPrimary">#d65754</color>
+    <color name="colorPrimaryDark">#5c5c5c</color>
+    <color name="colorAccent">#5c5c5c</color>
 
     <color name="colorBackground">#f7f8ff</color>
     <color name="colorText">#363636</color>
@@ -16,4 +16,5 @@
     <color name="colorBackgroundChat">#edeffc</color>
     <color name="colorBorder">#707070</color>
     <color name="colorBackgroundAlbum">#f9f9f9</color>
+    <color name="colorHint">#999999</color>
 </resources>

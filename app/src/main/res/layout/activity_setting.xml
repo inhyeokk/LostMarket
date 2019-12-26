@@ -5,6 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.setting.SettingActivity">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.sejong.unknown.view.setting.SettingViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

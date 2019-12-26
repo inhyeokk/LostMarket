@@ -17,6 +17,7 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
     @Override
     protected void onDataBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_setting);
+        binding.setViewModel(settingViewModel);
         binding.setLifecycleOwner(this);
     }
 

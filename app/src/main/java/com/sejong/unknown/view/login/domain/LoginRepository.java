@@ -5,5 +5,5 @@ import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 public interface LoginRepository {
-    Single<Response<ResponseBody>> login();
+    Single<Response<ResponseBody>> login(String id, String pw);
 }

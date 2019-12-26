@@ -9,11 +9,11 @@ abstract public class BaseViewModel extends ViewModel {
 
     protected CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    protected void register(Disposable disposable) {
+    public void register(Disposable disposable) {
         compositeDisposable.add(disposable);
     }
 
-    protected void register(Disposable... disposables) {
+    public void register(Disposable... disposables) {
         compositeDisposable.addAll(disposables);
     }
 

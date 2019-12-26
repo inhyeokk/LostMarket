@@ -12,12 +12,13 @@ import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 public class LoginRepositoryImpl implements LoginRepository {
+
     @Override
-    public Single<Response<ResponseBody>> login() {
+    public Single<Response<ResponseBody>> login(String id, String pw) {
         RetrofitService service = RetrofitHelper.getRetrofitService(RetrofitService.class);
         HashMap<String, String> input = new HashMap<>();
-        input.put("userid", "admin");
-        input.put("userpasswd", "sejong");
+        input.put("userid", id);
+        input.put("userpasswd", pw);
         return service
                 .login(input)
                 .subscribeOn(Schedulers.io());

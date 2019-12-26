@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".view.setting.SettingActivity" />
         <activity android:name=".view.login.LoginActivity" />
+        <activity android:name=".view.manage.ManageActivity" />
     </application>
 
 </manifest>
