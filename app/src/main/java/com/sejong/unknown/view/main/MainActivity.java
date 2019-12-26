@@ -13,7 +13,6 @@ import com.sejong.unknown.databinding.ActivityMainBinding;
 import com.sejong.unknown.view.detail.DetailActivity;
 import com.sejong.unknown.view.main.adapter.CategoryAdapter;
 import com.sejong.unknown.view.main.adapter.LostAdapter;
-import com.sejong.unknown.view.main.data.ContextDelegateImpl;
 import com.sejong.unknown.view.main.data.MainRepositoryImpl;
 import com.sejong.unknown.view.main.entity.CategoryItem;
 import com.sejong.unknown.view.main.entity.LostItem;
@@ -41,6 +40,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     protected void setupView() {
         initToolbar();
         initRecyclerViewCategory();
+        initSwipeRefreshLayout();
         initRecyclerViewLost();
         initBottomNavigationView();
         observeMainViewModel();
@@ -82,6 +82,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         items.add(CategoryItem.WALLET);
         items.add(CategoryItem.ETC);
         return items;
+    }
+
+    private void initSwipeRefreshLayout() {
+
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> {
+            mainViewModel.requestLostItems(CategoryItem.fromValue(before).getName());
+            binding.swipeRefreshLayout.setRefreshing(false);
+        });
     }
 
     private void initRecyclerViewLost() {

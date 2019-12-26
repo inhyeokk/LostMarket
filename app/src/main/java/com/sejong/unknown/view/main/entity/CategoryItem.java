@@ -27,6 +27,15 @@ public enum CategoryItem {
         return null;
     }
 
+    public static CategoryItem fromValue(int value) {
+        for (CategoryItem category: CategoryItem.values()) {
+            if (category.value == value) {
+                return category;
+            }
+        }
+        return null;
+    }
+
     public String getName() {
         return name;
     }
