@@ -22,24 +22,27 @@ public class MainViewModel extends BaseViewModel {
 
     private static final String TAG = MainViewModel.class.getName();
 
-    private ContextDelegate contextDelegate;
     private MainRepository mainRepository;
 
     public MutableLiveData<ArrayList<LostItem>> lostItemsLiveData = new MutableLiveData<>();
 
-    public MainViewModel(ContextDelegate contextDelegate, MainRepository mainRepository) {
-        this.contextDelegate = contextDelegate;
+    public MainViewModel(MainRepository mainRepository) {
         this.mainRepository = mainRepository;
     }
 
     public MutableLiveData<CategoryItem> categoryItemLiveData = new MutableLiveData<>();
+    public MutableLiveData<LostItem> lostItemLiveData = new MutableLiveData<>();
 
     public void onClickCategoryItem(CategoryItem categoryItem) {
         categoryItemLiveData.setValue(categoryItem);
     }
 
+    public void onClickLostItem(LostItem lostItem) {
+        lostItemLiveData.setValue(lostItem);
+    }
+
     public void requestLostItems(String category) {
-        if (category.equals("전체")) {
+        if (category.equals(CategoryItem.ALL.getName())) {
             category = "";
         }
         register(mainRepository.requestLostItems(category)
@@ -54,10 +57,11 @@ public class MainViewModel extends BaseViewModel {
             LostItem item = new LostItem(
                     CategoryItem.fromString(lost.category),
                     lost.image,
-                    contextDelegate.getString(R.string.lost_tv_found_date, lost.foundDate),
+                    lost.foundDate,
                     lost.detailName,
-                    contextDelegate.getString(R.string.lost_tv_found_location, lost.foundLocation),
-                    contextDelegate.getString(R.string.lost_tv_storage_location, lost.storageLocation)
+                    lost.foundLocation,
+                    lost.storageLocation,
+                    lost.detail
             );
             lostItemList.add(item);
         }

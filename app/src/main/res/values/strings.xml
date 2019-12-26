@@ -27,4 +27,15 @@
     <string name="login_tv_auto_login">자동로그인</string>
     <string name="login_tv_login">로그인</string>
     <string name="login_toast_notice">아이디 또는 비밀번호가 일치하지 않습니다</string>
+
+    <!-- activity_detail -->
+    <string name="detail_title">분실물 찾기 - 상세</string>
+    <string name="detail_tv_name">습득물명</string>
+    <string name="detail_tv_found_date">습득일자</string>
+    <string name="detail_tv_found_location">습득장소</string>
+    <string name="detail_tv_contents">상세내용</string>
+    <string name="detail_tv_category">물품분류</string>
+    <string name="detail_tv_storage_location">보관장소</string>
+    <string name="detail_tv_telephone">전화번호</string>
+    <string name="detail_tv_library">02\-3408\-3865</string>
 </resources>

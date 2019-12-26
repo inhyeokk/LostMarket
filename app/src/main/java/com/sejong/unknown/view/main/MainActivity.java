@@ -1,7 +1,6 @@
 package com.sejong.unknown.view.main;
 
 import android.content.Intent;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -11,20 +10,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.sejong.unknown.R;
 import com.sejong.unknown.base.BaseActivity;
 import com.sejong.unknown.databinding.ActivityMainBinding;
-import com.sejong.unknown.util.ImageUtil;
+import com.sejong.unknown.view.detail.DetailActivity;
 import com.sejong.unknown.view.main.adapter.CategoryAdapter;
 import com.sejong.unknown.view.main.adapter.LostAdapter;
 import com.sejong.unknown.view.main.data.ContextDelegateImpl;
 import com.sejong.unknown.view.main.data.MainRepositoryImpl;
 import com.sejong.unknown.view.main.entity.CategoryItem;
+import com.sejong.unknown.view.main.entity.LostItem;
 import com.sejong.unknown.view.setting.SettingActivity;
 
 import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
+    public static String EXTRA_LOST_ITEM = "EXTRA_LOST_ITEM";
+
     private ActivityMainBinding binding;
-    private MainViewModel mainViewModel = new MainViewModel(new ContextDelegateImpl(this), new MainRepositoryImpl());
+    private MainViewModel mainViewModel = new MainViewModel(new MainRepositoryImpl());
 
     private int before = 0;
 
@@ -129,6 +131,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             lostAdapter.clear();
             lostAdapter.addAll(lostItems);
         });
+
+        mainViewModel.lostItemLiveData.observe(this, this::goToDetailActivity);
     }
 
     private void selectCategoryItem(CategoryItem categoryItem) {
@@ -145,6 +149,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     private void goToSettingActivity() {
         Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
+    }
+
+    private void goToDetailActivity(LostItem lostItem) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(EXTRA_LOST_ITEM, lostItem);
         startActivity(intent);
     }
 }

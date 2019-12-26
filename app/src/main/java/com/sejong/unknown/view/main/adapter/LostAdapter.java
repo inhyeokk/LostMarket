@@ -11,6 +11,7 @@ import com.sejong.unknown.R;
 import com.sejong.unknown.databinding.ItemLostBinding;
 import com.sejong.unknown.util.ImageUtil;
 import com.sejong.unknown.view.main.MainViewModel;
+import com.sejong.unknown.view.main.domain.ContextDelegate;
 import com.sejong.unknown.view.main.entity.LostItem;
 
 import java.util.ArrayList;

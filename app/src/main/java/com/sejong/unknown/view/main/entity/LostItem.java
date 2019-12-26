@@ -1,6 +1,9 @@
 package com.sejong.unknown.view.main.entity;
 
-public class LostItem {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class LostItem implements Parcelable {
 
     private CategoryItem type;
     private String image;
@@ -8,14 +11,16 @@ public class LostItem {
     private String name;
     private String foundLocation;
     private String storageLocation;
+    private String contents;
 
-    public LostItem(CategoryItem type, String image, String foundDate, String name, String foundLocation, String storageLocation) {
+    public LostItem(CategoryItem type, String image, String foundDate, String name, String foundLocation, String storageLocation, String contents) {
         this.type = type;
         this.image = image;
         this.foundDate = foundDate;
         this.name = name;
         this.foundLocation = foundLocation;
         this.storageLocation = storageLocation;
+        this.contents = contents;
     }
 
     public CategoryItem getType() {
@@ -65,4 +70,52 @@ public class LostItem {
     public void setStorageLocation(String storageLocation) {
         this.storageLocation = storageLocation;
     }
+
+    public String getContents() {
+        return contents;
+    }
+
+    public void setContents(String contents) {
+        this.contents = contents;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.type == null ? -1 : this.type.ordinal());
+        dest.writeString(this.image);
+        dest.writeString(this.foundDate);
+        dest.writeString(this.name);
+        dest.writeString(this.foundLocation);
+        dest.writeString(this.storageLocation);
+        dest.writeString(this.contents);
+    }
+
+    protected LostItem(Parcel in) {
+        int tmpType = in.readInt();
+        this.type = tmpType == -1 ? null : CategoryItem.values()[tmpType];
+        this.image = in.readString();
+        this.foundDate = in.readString();
+        this.name = in.readString();
+        this.foundLocation = in.readString();
+        this.storageLocation = in.readString();
+        this.contents = in.readString();
+    }
+
+    public static final Creator<LostItem> CREATOR = new Creator<LostItem>() {
+        @Override
+        public LostItem createFromParcel(Parcel source) {
+            return new LostItem(source);
+        }
+
+        @Override
+        public LostItem[] newArray(int size) {
+            return new LostItem[size];
+        }
+    };
 }

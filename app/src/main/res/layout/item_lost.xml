@@ -15,7 +15,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:onClick="@{() -> viewModel.onClickLostItem(lostItem)}">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_image"
@@ -44,7 +45,7 @@
             android:id="@+id/tv_found_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{lostItem.foundDate}"
+            app:bind_found_date="@{lostItem.foundDate}"
             android:textColor="@color/colorText"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@{lostItem.foundLocation}"
+            app:bind_found_location="@{lostItem.foundLocation}"
             android:textColor="@color/colorTextGray"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/tv_storage_location"
@@ -79,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@{lostItem.storageLocation}"
+            app:bind_storage_location="@{lostItem.storageLocation}"
             android:textColor="@color/colorTextGray"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
