@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".LostApplication"
@@ -16,12 +17,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.main.MainActivity">
 
-        </activity>
-        <activity android:name=".view.setting.SettingActivity" />
-        <activity android:name=".view.login.LoginActivity" />
-        <activity android:name=".view.manage.ManageActivity">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.sejong.unknown"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_path" />
+        </provider>
+
+        <activity android:name=".view.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -29,7 +36,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".view.setting.SettingActivity" />
+        <activity android:name=".view.login.LoginActivity" />
+        <activity android:name=".view.manage.ManageActivity" />
         <activity android:name=".view.detail.DetailActivity" />
+        <activity android:name=".view.upload.UploadActivity" />
+        <activity android:name=".view.market.MarketActivity" />
+        <activity android:name=".view.information.InformationActivity" />
     </application>
 
 </manifest>

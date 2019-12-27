@@ -45,4 +45,6 @@
     <string name="manage_tv_pick_up">찾아간 분실물</string>
     <string name="manage_tv_not_rental">대여가능 품목</string>
     <string name="manage_tv_rental">대여중인 품목</string>
+
+    <string name="market_title">분실물 마켓</string>
 </resources>

@@ -11,11 +11,13 @@ import com.sejong.unknown.R;
 import com.sejong.unknown.base.BaseActivity;
 import com.sejong.unknown.databinding.ActivityMainBinding;
 import com.sejong.unknown.view.detail.DetailActivity;
+import com.sejong.unknown.view.information.InformationActivity;
 import com.sejong.unknown.view.main.adapter.CategoryAdapter;
 import com.sejong.unknown.view.main.adapter.LostAdapter;
 import com.sejong.unknown.view.main.data.MainRepositoryImpl;
 import com.sejong.unknown.view.main.entity.CategoryItem;
 import com.sejong.unknown.view.main.entity.LostItem;
+import com.sejong.unknown.view.market.MarketActivity;
 import com.sejong.unknown.view.setting.SettingActivity;
 
 import java.util.ArrayList;
@@ -116,8 +118,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 case R.id.menu_found_item:
                     return true;
                 case R.id.menu_information:
+                    goToInformationActivity();
                     return true;
                 case R.id.menu_market:
+                    goToMarketActivity();
                     return true;
                 case R.id.menu_setting:
                     goToSettingActivity();
@@ -153,6 +157,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private void initView() {
 //        mainViewModel.onClickCategoryItem(CategoryItem.ALL);
         mainViewModel.requestLostItems("");
+    }
+
+    private void goToInformationActivity() {
+        Intent intent = new Intent(this, InformationActivity.class);
+        startActivity(intent);
+    }
+
+    private void goToMarketActivity() {
+        Intent intent = new Intent(this, MarketActivity.class);
+        startActivity(intent);
     }
 
     private void goToSettingActivity() {
